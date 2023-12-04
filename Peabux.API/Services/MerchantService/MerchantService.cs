@@ -1,13 +1,16 @@
-﻿using Peabux.API.Models;
+﻿using Peabux.API.Data;
+using Peabux.API.Models;
 using Peabux.API.ServiceResponse;
 
 namespace Peabux.API.Services.MerchantService
 {
     public class MerchantService : IMerchantService
     {
-        public MerchantService()
-        {
+        private readonly AppDbContext _db;
 
+        public MerchantService(AppDbContext db)
+        {
+            _db = db;
         }
 
 
