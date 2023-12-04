@@ -1,4 +1,5 @@
-﻿namespace Peabux.API.Entities
+﻿
+namespace Peabux.API.Entities
 {
     public class Customer : BaseEntity
     {
@@ -9,6 +10,8 @@
         public DateTime? DOB { get; set; }
         public string? CustomerNumber { get; set; }
         public string? TransactionHistory { get; set; }
+
+        
 
 
     }

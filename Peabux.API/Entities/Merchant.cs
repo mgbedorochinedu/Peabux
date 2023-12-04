@@ -1,4 +1,6 @@
-﻿namespace Peabux.API.Entities
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace Peabux.API.Entities
 {
     public class Merchant : BaseEntity
     {
@@ -10,6 +12,10 @@
         public DateTime? EstablishmentDate { get; set; }
         public string? MerchantNumber { get; set; }
         public decimal? AverageTransaction { get; set; }
+
+        [ForeignKey("Customer")]
+        public int CustomerId { get; set; }
+        public Customer? Customer { get; set; }
 
     }
 }
