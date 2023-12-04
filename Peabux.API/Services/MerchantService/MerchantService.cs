@@ -1,4 +1,5 @@
-﻿using Peabux.API.ServiceResponse;
+﻿using Peabux.API.Models;
+using Peabux.API.ServiceResponse;
 
 namespace Peabux.API.Services.MerchantService
 {
@@ -10,19 +11,19 @@ namespace Peabux.API.Services.MerchantService
         }
 
 
-        //public async Task<BaseResponse> AddMerchant()
-        //{
-        //    try
-        //    {
+        public async Task<BaseResponse> AddMerchant(AddMerchantModel model)
+        {
+            try
+            {
 
-        //    }
-        //    catch (Exception)
-        //    {
+            }
+            catch (Exception)
+            {
 
-        //        throw;
-        //    }
+                throw;
+            }
 
-        //}
+        }
 
 
 
