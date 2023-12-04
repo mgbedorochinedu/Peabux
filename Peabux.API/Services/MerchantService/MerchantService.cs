@@ -27,6 +27,14 @@ namespace Peabux.API.Services.MerchantService
                     return new BaseResponse(false, null, "The Business cannot be less than a year.");
                 }
 
+                var businessIdExist = _db.Merchants.Any(x => x.BusinessId.ToLower() == model.BusinessIdNumber.ToLower());
+                if (businessIdExist)
+                    return new BaseResponse(false, null, "Business Identification Number already exist.");
+
+                var merchantNumberExist = _db.Merchants.Any(x => x.BusinessId.ToLower() == model.BusinessIdNumber.ToLower());
+                if (merchantNumberExist)
+                    return new BaseResponse(false, null, "Merchant Number already exist.");
+
                 Merchant merchant = new Merchant()
                 {
                     BusinessId = model.BusinessIdNumber,
