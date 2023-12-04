@@ -19,8 +19,13 @@ namespace Peabux.API.Services.MerchantService
         {
             try
             {
+                DateTime currentDate = DateTime.Today;
+                var businessAge = currentDate - model.EstablishmentDate;
 
-
+                if (businessAge?.TotalDays < 365)
+                {
+                    return new BaseResponse(false, null, "The Business cannot be less than a year.");
+                }
 
                 Merchant merchant = new Merchant()
                 {
