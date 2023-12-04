@@ -31,7 +31,7 @@ namespace Peabux.API.Services.MerchantService
                 if (businessIdExist)
                     return new BaseResponse(false, null, "Business Identification Number already exist.");
 
-                var merchantNumberExist = _db.Merchants.Any(x => x.BusinessId.ToLower() == model.BusinessIdNumber.ToLower());
+                var merchantNumberExist = _db.Merchants.Any(x => x.MerchantNumber.ToLower() == model.MerchantNumber.ToLower());
                 if (merchantNumberExist)
                     return new BaseResponse(false, null, "Merchant Number already exist.");
 
