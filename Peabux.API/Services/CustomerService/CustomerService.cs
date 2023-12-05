@@ -26,14 +26,19 @@ namespace Peabux.API.Services.CustomerService
                 if (customberNumberExist)
                     return new BaseResponse(false, null, "Customer Number already exist.");
 
+                if (!IsAbove18(model.DOB)) 
+                { 
+                    return new BaseResponse(false, null, "You must be 18 years to proceed with this application.");
+                }
+
                 Customer customer = new Customer()
                 {
-                    NationalID = model.NationalID,
-                    Name = model.Name,
-                    Surname = model.Surname,
-                    DOB = model.DOB,
-                    CustomerNumber = model.CustomerNumber,
-                    TransactionHistory = model.TransactionHistory,
+                    NationalID = model?.NationalID?.ToUpper(),
+                    Name = model?.Name?.ToUpper(),
+                    Surname = model?.Surname,
+                    DOB = model?.DOB,
+                    CustomerNumber = model?.CustomerNumber,
+                    TransactionHistory = model?.TransactionHistory,
                     CreatedAt = DateTime.Now
                 };
                 await _db.AddAsync(customer);
@@ -53,6 +58,18 @@ namespace Peabux.API.Services.CustomerService
                 //TODO: Handle Exception Log Here...
                 return new BaseResponse(false, ex, "An unexpected error occurred.");
             }
+        }
+
+        public static bool IsAbove18(DateTime birthdate)
+        {
+            var today = DateTime.Now;
+            var age = today.Year - birthdate.Year;
+
+            if (birthdate.Month > today.Month || (birthdate.Month == today.Month && birthdate.Day > today.Day))
+            {
+                age--;
+            }
+            return age >= 18;
         }
 
 

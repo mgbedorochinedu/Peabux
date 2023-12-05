@@ -14,7 +14,7 @@ namespace Peabux.API.Models
         public string? Surname { get; set; }
 
         [Required(ErrorMessage = "Name Date of Birth field required")]
-        public DateTime? DOB { get; set; }
+        public DateTime DOB { get; set; }
 
         [Required(ErrorMessage = "Customer Identification Number field required")]
         public string? CustomerNumber { get; set; }
