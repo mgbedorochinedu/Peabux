@@ -37,6 +37,11 @@ namespace Peabux.API.Controllers
         }
 
 
+        /// <summary>
+        /// Get a single Merchant on the database by Id.
+        /// </summary>
+        /// <param name="mechantId"></param>
+        /// <returns>Return a single Merchant. </returns>
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]

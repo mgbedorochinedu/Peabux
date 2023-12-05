@@ -37,6 +37,13 @@ namespace Peabux.API.Controllers
                 return Ok(response);                      
         }
 
+
+
+        /// <summary>
+        /// Get a single customer on the database by Id.
+        /// </summary>
+        /// <param name="customerId"></param>
+        /// <returns>Return a single customer. </returns>
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
