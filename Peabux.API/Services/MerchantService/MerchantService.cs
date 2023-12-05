@@ -22,7 +22,7 @@ namespace Peabux.API.Services.MerchantService
                 DateTime currentDate = DateTime.Today;
                 var businessAge = currentDate - model.EstablishmentDate;
 
-                if (businessAge?.TotalDays < 365)
+                if (businessAge.TotalDays < 365)
                 {
                     return new BaseResponse(false, null, "The Business cannot be less than a year.");
                 }
@@ -41,7 +41,7 @@ namespace Peabux.API.Services.MerchantService
                     BusinessName = model?.BusinessName,
                     ContactName = model?.ContactName,
                     ContactSurname = model?.ContactSurname,
-                    EstablishmentDate = model?.EstablishmentDate,
+                    EstablishmentDate = model.EstablishmentDate,
                     MerchantNumber = model?.MerchantNumber?.Trim().ToUpper(),
                     AverageTransaction = model?.AverageTransaction,
                     CustomerId = model.CustomerId,

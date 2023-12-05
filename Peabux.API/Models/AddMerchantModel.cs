@@ -17,7 +17,7 @@ namespace Peabux.API.Models
         public string? ContactSurname { get; set; }
 
         [Required(ErrorMessage = "Date of Establishment field required")]
-        public DateTime? EstablishmentDate { get; set; }
+        public DateTime EstablishmentDate { get; set; }
 
         [Required(ErrorMessage = "Merchant Number required")]
         public string? MerchantNumber { get; set; }
