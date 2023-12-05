@@ -1,4 +1,5 @@
-﻿using Peabux.API.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using Peabux.API.Data;
 using Peabux.API.Entities;
 using Peabux.API.Models;
 using Peabux.API.ServiceResponse;
@@ -64,6 +65,36 @@ namespace Peabux.API.Services.MerchantService
                 return new BaseResponse(false, ex, "An unexpected error occurred.");
             }
 
+        }
+
+        public async Task<BaseResponse> GetMerchant(int mechantId)
+        {
+            try
+            {
+                var dbMerchant = await _db.Merchants.Where(x => x.MerchantId.Equals(mechantId))
+                    .Select(merchant => new GetMerchant()
+                    {
+                        BusinessId = merchant.BusinessId,
+                        BusinessName = merchant.BusinessName,
+                        ContactName = merchant.ContactName,
+                        ContactSurname = merchant.ContactSurname,
+                        EstablishmentDate = merchant.EstablishmentDate,
+                        MerchantNumber = merchant.MerchantNumber,
+                        AverageTransaction = merchant.AverageTransaction,
+                        CustomerId = merchant.CustomerId,
+                    }).FirstOrDefaultAsync();
+
+                if (dbMerchant == null)
+                    return new BaseResponse(false, null, $"No Mechant with MechantId: {mechantId} found.");
+
+                return new BaseResponse(true, dbMerchant, "Successfully fetch data.");
+
+            }
+            catch (Exception ex)
+            {
+                //TODO: Handle Exception Log Here...
+                return new BaseResponse(false, ex, "An unexpected error occurred.");
+            }
         }
 
 

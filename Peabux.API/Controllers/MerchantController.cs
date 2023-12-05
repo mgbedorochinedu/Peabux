@@ -36,5 +36,16 @@ namespace Peabux.API.Controllers
             return Ok(response);
         }
 
+
+        [HttpGet]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> GetMerchant([FromQuery] int mechantId)
+        {           
+            var response = await _merchantService.GetMerchant(mechantId);
+            if(response == null) return NotFound(response);
+            return Ok(response);
+        }
     }
 }
