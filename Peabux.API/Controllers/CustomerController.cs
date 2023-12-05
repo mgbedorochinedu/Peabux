@@ -36,5 +36,19 @@ namespace Peabux.API.Controllers
                 var response = await _customerService.CreateCustomer(model);
                 return Ok(response);                      
         }
+
+        [HttpGet]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> GetCustomer([FromQuery] int customerId)
+        {
+            var response = await _customerService.GetCustomer(customerId);
+            if (response == null) return NotFound(response);
+            return Ok(response);
+        }
+
+
+
     }
 }

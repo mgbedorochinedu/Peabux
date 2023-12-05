@@ -72,7 +72,7 @@ namespace Peabux.API.Services.MerchantService
             try
             {
                 var dbMerchant = await _db.Merchants.Where(x => x.MerchantId.Equals(mechantId))
-                    .Select(merchant => new GetMerchant()
+                    .Select(merchant => new GetMerchantModel()
                     {
                         BusinessId = merchant.BusinessId,
                         BusinessName = merchant.BusinessName,

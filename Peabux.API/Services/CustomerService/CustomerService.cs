@@ -1,4 +1,5 @@
-﻿using Peabux.API.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using Peabux.API.Data;
 using Peabux.API.Entities;
 using Peabux.API.Models;
 using Peabux.API.ServiceResponse;
@@ -73,6 +74,33 @@ namespace Peabux.API.Services.CustomerService
         }
 
 
+
+        public async Task<BaseResponse> GetCustomer(int customerId)
+        {
+            try
+            {
+                var dbCustomer = await _db.Customers.Where(x => x.CustomerId.Equals(customerId))
+                    .Select(customer => new GetCustomerModel()
+                    {
+                        NationalID = customer.NationalID,
+                        Name = customer.Name,
+                        Surname = customer.Surname,
+                        DOB = customer.DOB,
+                        CustomerNumber = customer.CustomerNumber,
+                        TransactionHistory = customer.TransactionHistory,                       
+                    }).FirstOrDefaultAsync();
+
+                if (dbCustomer == null)
+                    return new BaseResponse(false, null, $"No Customer with CustomerId: {customerId} found.");
+
+                return new BaseResponse(true, dbCustomer, "Successfully fetch data.");
+            }
+            catch (Exception ex)
+            {
+                //TODO: Handle Exception Log Here...
+                return new BaseResponse(false, ex, "An unexpected error occurred.");
+            }
+        }
 
 
 

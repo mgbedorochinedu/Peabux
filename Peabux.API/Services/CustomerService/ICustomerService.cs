@@ -6,5 +6,6 @@ namespace Peabux.API.Services.CustomerService
     public interface ICustomerService
     {
         Task<BaseResponse> CreateCustomer(CreateCustomerModel model);
+        Task<BaseResponse> GetCustomer(int customerId);
     }
 }

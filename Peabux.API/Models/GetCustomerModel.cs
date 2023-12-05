@@ -1,15 +1,12 @@
-﻿
-namespace Peabux.API.Entities
+﻿namespace Peabux.API.Models
 {
-    public class Customer : BaseEntity
+    public class GetCustomerModel
     {
-        public int CustomerId { get; set; }
         public string? NationalID { get; set; }
         public string? Name { get; set; }
         public string? Surname { get; set; }
         public DateTime? DOB { get; set; }
         public string? CustomerNumber { get; set; }
-        public string? TransactionHistory { get; set; }       
-
+        public string? TransactionHistory { get; set; }
     }
 }

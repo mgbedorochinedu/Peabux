@@ -1,6 +1,6 @@
 ﻿namespace Peabux.API.Models
 {
-    public class GetMerchant
+    public class GetMerchantModel
     {
         public string? BusinessId { get; set; }
         public string? BusinessName { get; set; }
