@@ -22,7 +22,7 @@ namespace Peabux.API.Controllers
         /// Create customer to the database.
         /// </summary>
         /// <param name="model">Some of the field are required.</param>
-        /// <returns>Returns Customer ID created on the database, this will be use to AddMerchant to keep track customer creating the Merchant.</returns>
+        /// <returns>Returns success message if everything is saved successful, or error message indicating something went wrong.</returns>
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -39,12 +39,10 @@ namespace Peabux.API.Controllers
 
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> GetCustomer([FromQuery] int customerId)
         {
             var response = await _customerService.GetCustomer(customerId);
-            if (response == null) return NotFound(response);
             return Ok(response);
         }
 

@@ -28,13 +28,11 @@ namespace Peabux.API.Services.MerchantService
                     return new BaseResponse(false, null, "The Business cannot be less than a year.");
                 }
 
-                var businessIdExist = _db.Merchants.Any(x => x.BusinessId.ToLower() == model.BusinessIdNumber.ToLower());
-                if (businessIdExist)
-                    return new BaseResponse(false, null, "Business Identification Number already exist.");
+                var businessExist = _db.Merchants.Any(x => x.BusinessId.ToLower() == model.BusinessIdNumber.ToLower() 
+                && x.MerchantNumber.ToLower() == model.MerchantNumber.ToLower());
 
-                var merchantNumberExist = _db.Merchants.Any(x => x.MerchantNumber.ToLower() == model.MerchantNumber.ToLower());
-                if (merchantNumberExist)
-                    return new BaseResponse(false, null, "Merchant Number already exist.");
+                if (businessExist)
+                    return new BaseResponse(false, null, $"Business Identification Number: {model?.BusinessIdNumber?.ToUpper()} with Merchant Number: {model?.MerchantNumber?.ToUpper()} already exist.");
 
                 Merchant merchant = new Merchant()
                 {
@@ -45,7 +43,6 @@ namespace Peabux.API.Services.MerchantService
                     EstablishmentDate = model.EstablishmentDate,
                     MerchantNumber = model?.MerchantNumber?.Trim().ToUpper(),
                     AverageTransaction = model?.AverageTransaction,
-                    CustomerId = model.CustomerId,
                     CreatedAt = DateTime.Now,
                 };
                 await _db.AddAsync(merchant);
@@ -67,6 +64,7 @@ namespace Peabux.API.Services.MerchantService
 
         }
 
+
         public async Task<BaseResponse> GetMerchant(int mechantId)
         {
             try
@@ -81,7 +79,6 @@ namespace Peabux.API.Services.MerchantService
                         EstablishmentDate = merchant.EstablishmentDate,
                         MerchantNumber = merchant.MerchantNumber,
                         AverageTransaction = merchant.AverageTransaction,
-                        CustomerId = merchant.CustomerId,
                     }).FirstOrDefaultAsync();
 
                 if (dbMerchant == null)

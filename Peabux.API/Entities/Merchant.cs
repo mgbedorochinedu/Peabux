@@ -13,9 +13,6 @@ namespace Peabux.API.Entities
         public string? MerchantNumber { get; set; }
         public decimal? AverageTransaction { get; set; }
 
-        [ForeignKey("Customer")]
-        public int CustomerId { get; set; }
-        public Customer? Customer { get; set; }
 
     }
 }

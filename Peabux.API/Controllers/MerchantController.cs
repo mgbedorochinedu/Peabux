@@ -20,7 +20,7 @@ namespace Peabux.API.Controllers
         /// <summary>
         /// Add Merchant to the database.
         /// </summary>
-        /// <param name="model">The fields are required except AverageTransaction. It also accept the "CustomerId" to keep track of the customer creating the Merchant.</param>
+        /// <param name="model">The fields are required except AverageTransaction.</param>
         /// <returns>Returns success message if everything is saved successful, or error message indicating something went wrong.</returns>
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status200OK)]
@@ -39,12 +39,10 @@ namespace Peabux.API.Controllers
 
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> GetMerchant([FromQuery] int mechantId)
         {           
             var response = await _merchantService.GetMerchant(mechantId);
-            if(response == null) return NotFound(response);
             return Ok(response);
         }
 

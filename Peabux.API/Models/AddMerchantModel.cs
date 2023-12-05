@@ -23,7 +23,5 @@ namespace Peabux.API.Models
         public string? MerchantNumber { get; set; }
         public decimal? AverageTransaction { get; set; }
 
-        [Required(ErrorMessage = "Must pass Customer Id")]
-        public int CustomerId { get; set; }
     }
 }

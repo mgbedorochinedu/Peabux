@@ -9,6 +9,5 @@
         public DateTime? EstablishmentDate { get; set; }
         public string? MerchantNumber { get; set; }
         public decimal? AverageTransaction { get; set; }
-        public int CustomerId { get; set; }
     }
 }

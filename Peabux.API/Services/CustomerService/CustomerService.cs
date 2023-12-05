@@ -19,13 +19,12 @@ namespace Peabux.API.Services.CustomerService
         {
             try
             {
-                var nationalIdExist =  _db.Customers.Any(x => x.NationalID.ToLower() == model.NationalID.ToLower());
-                if(nationalIdExist)
-                    return new BaseResponse(false, null, "National Identication Number already exist.");
+                var customerExist =  _db.Customers.Any(x => x.NationalID.ToLower() == model.NationalID.ToLower() 
+                && x.CustomerNumber.ToLower() == model.CustomerNumber.ToLower());
 
-                var customberNumberExist = _db.Customers.Any(x => x.CustomerNumber.ToLower() == model.CustomerNumber.ToLower());
-                if (customberNumberExist)
-                    return new BaseResponse(false, null, "Customer Number already exist.");
+                if(customerExist)
+                    return new BaseResponse(false, null, $"Customer with National Identication Number: {model?.NationalID?.ToUpper()} and Customer Number: {model?.CustomerNumber?.ToUpper()} already exist.");
+
 
                 if (!IsAbove18(model.DOB)) 
                 { 
@@ -94,6 +93,7 @@ namespace Peabux.API.Services.CustomerService
                     return new BaseResponse(false, null, $"No Customer with CustomerId: {customerId} found.");
 
                 return new BaseResponse(true, dbCustomer, "Successfully fetch data.");
+
             }
             catch (Exception ex)
             {
