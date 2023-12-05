@@ -40,11 +40,11 @@ namespace Peabux.API.Services.CustomerService
                 var isSaved = await _db.SaveChangesAsync();
                 if (isSaved > 0)
                 {
-                    return new BaseResponse(true, null, "Successfully saved Customer.");
+                    return new BaseResponse(true, customer.CustomerId, $"Successfully create a Customer with CustomerID: {customer.CustomerId}.");
                 }
                 else
                 {
-                    return new BaseResponse(false, null, "An error occur trying to save Customer. Try Again Later.");
+                    return new BaseResponse(false, null, "An error occur trying to create Customer. Try Again Later.");
                 }
 
             }
