@@ -37,13 +37,13 @@ namespace Peabux.API.Services.MerchantService
 
                 Merchant merchant = new Merchant()
                 {
-                    BusinessId = model.BusinessIdNumber,
-                    BusinessName = model.BusinessName,
-                    ContactName = model.ContactName,
-                    ContactSurname = model.ContactSurname,
-                    EstablishmentDate = model.EstablishmentDate,
-                    MerchantNumber = model.MerchantNumber,
-                    AverageTransaction = model.AverageTransaction,
+                    BusinessId = model?.BusinessIdNumber?.Trim().ToUpper(),
+                    BusinessName = model?.BusinessName,
+                    ContactName = model?.ContactName,
+                    ContactSurname = model?.ContactSurname,
+                    EstablishmentDate = model?.EstablishmentDate,
+                    MerchantNumber = model?.MerchantNumber?.Trim().ToUpper(),
+                    AverageTransaction = model?.AverageTransaction,
                     CustomerId = model.CustomerId,
                     CreatedAt = DateTime.Now,
                 };

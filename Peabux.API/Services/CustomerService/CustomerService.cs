@@ -33,11 +33,11 @@ namespace Peabux.API.Services.CustomerService
 
                 Customer customer = new Customer()
                 {
-                    NationalID = model?.NationalID?.ToUpper(),
-                    Name = model?.Name?.ToUpper(),
+                    NationalID = model?.NationalID?.Trim().ToUpper(),
+                    Name = model?.Name,
                     Surname = model?.Surname,
                     DOB = model?.DOB,
-                    CustomerNumber = model?.CustomerNumber,
+                    CustomerNumber = model?.CustomerNumber?.Trim().ToUpper(),
                     TransactionHistory = model?.TransactionHistory,
                     CreatedAt = DateTime.Now
                 };
