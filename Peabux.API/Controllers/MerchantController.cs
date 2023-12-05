@@ -16,6 +16,12 @@ namespace Peabux.API.Controllers
             _merchantService = merchantService;
         }
 
+
+        /// <summary>
+        /// Add Merchant to the database.
+        /// </summary>
+        /// <param name="model">The fields are required except AverageTransaction. It also accept the "CustomerId" to keep track of the customer creating the Merchant.</param>
+        /// <returns>Returns success message if everything is saved successful, or error message indicating something went wrong.</returns>
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]

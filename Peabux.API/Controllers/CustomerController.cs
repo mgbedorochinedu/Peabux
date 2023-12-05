@@ -17,6 +17,12 @@ namespace Peabux.API.Controllers
         }
 
 
+
+        /// <summary>
+        /// Create customer to the database.
+        /// </summary>
+        /// <param name="model">Some of the field are required.</param>
+        /// <returns>Returns Customer ID created on the database, this will be use to AddMerchant to keep track customer creating the Merchant.</returns>
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
