@@ -146,35 +146,7 @@ namespace Peabux.API_Tests
             };
             dbContext.Customers.AddRange(customers);
 
-
-            var merchants = new List<Merchant>
-            {
-                new Merchant()
-                {
-                    MerchantId = 1,
-                    BusinessId = "1059001239",
-                    BusinessName = "Brandtechture Design Agency",
-                    ContactName = "Austin",
-                    ContactSurname = "Johnson",
-                    EstablishmentDate = new DateTime(2000, 07, 12),
-                    MerchantNumber = "1933412",
-                    AverageTransaction = 2100000
-                    
-                },
-
-                  new Merchant()
-                  {
-                    MerchantId = 2,
-                    BusinessId = "4549001239",
-                    BusinessName = "Primehype Systems Services",
-                    ContactName = "Ayo",
-                    ContactSurname = "Adeyemi",
-                    EstablishmentDate = new DateTime(2018, 07, 12),
-                    MerchantNumber = "7003412",
-                    AverageTransaction = 1500000
-                  }
-            };
-            dbContext.Merchants.AddRange(merchants);
+    
 
             dbContext.SaveChanges();
         }
