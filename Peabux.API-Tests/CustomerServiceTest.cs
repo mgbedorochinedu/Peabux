@@ -6,6 +6,7 @@ using Peabux.API.Models;
 using Peabux.API.Services.CustomerService;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
 
 namespace Peabux.API_Tests
@@ -75,11 +76,36 @@ namespace Peabux.API_Tests
             var result = await customerService.CreateCustomer(newCustomer);
 
             Assert.That(result, Is.Not.Null);
+            Assert.That(newCustomer?.Name, Does.StartWith("Chinedu"));
             Assert.That(result.Data, Is.Not.Null);
             Assert.That(newCustomer?.CustomerNumber, Is.EqualTo("CUS5434970"));
             Assert.That(result.Success, Is.True, "The operation should saved successful");
         }
 
+
+        [Test, Order(4)]
+        public async Task CreateCustomer_With_Failed_Response_Test()
+        {
+            var newCustomer = new CreateCustomerModel()
+            {
+                NationalID = "",
+                Name = "Chinedu",
+                Surname = "Mgbedoro",
+                DOB = new DateTime(1968, 11, 3),
+                CustomerNumber = "CUS5434977",
+                TransactionHistory = "None"
+            };
+
+            // Manually validate the model to simulate ModelState.IsValid failure
+            var validationContext = new ValidationContext(newCustomer, serviceProvider: null, items: null);
+            var validationResults = new List<ValidationResult>();
+            bool isValid = Validator.TryValidateObject(newCustomer, validationContext, validationResults, validateAllProperties: true);
+
+            // Assert that the model state is invalid
+            Assert.IsFalse(isValid);
+
+            Assert.That(newCustomer?.NationalID, Is.Empty);           
+        }
 
 
 
