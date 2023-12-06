@@ -49,6 +49,19 @@ namespace Peabux.API_Tests.MerchantServiceTest
         }
 
 
+        [Test, Order(2)]
+        public async Task GetCustomer_WithoutResponse_Test()
+        {
+            var result = await merchantService.GetMerchant(60);
+            Assert.That(result.Success, Is.False, "The operation should failed because no Customer Id of 60");
+
+            // Access properties from the data contained in BaseResponse
+            var merchantData = result.Data as GetMerchantModel;
+
+            Assert.That(merchantData, Is.Null, "Merchant data should be null");
+        }
+
+
 
 
 
