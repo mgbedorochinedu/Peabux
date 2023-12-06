@@ -6,6 +6,7 @@ using Peabux.API.Models;
 using Peabux.API.Services.MerchantService;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -84,6 +85,32 @@ namespace Peabux.API_Tests.MerchantServiceTest
             Assert.That(result.Data, Is.Not.Null);
             Assert.That(newMerchant?.BusinessIdNumber, Is.EqualTo("BUS-4549001239"));
             Assert.That(result.Success, Is.True, "The operation should saved successful");
+        }
+
+
+        [Test, Order(4)]
+        public async Task AddMerchant_With_Failed_Response_Test()
+        {
+            var newMerchant = new AddMerchantModel()
+            {
+                BusinessIdNumber = "",
+                BusinessName = "Primehype Systems Services",
+                ContactName = "Ayo",
+                ContactSurname = "Adeyemi",
+                EstablishmentDate = new DateTime(2018, 07, 12),
+                MerchantNumber = "7003412",
+                AverageTransaction = 1500000
+            };
+
+            // Manually validate the model to simulate ModelState.IsValid failure
+            var validationContext = new ValidationContext(newMerchant, serviceProvider: null, items: null);
+            var validationResults = new List<ValidationResult>();
+            bool isValid = Validator.TryValidateObject(newMerchant, validationContext, validationResults, validateAllProperties: true);
+
+            // Assert that the model state is invalid
+            Assert.IsFalse(isValid);
+
+            Assert.That(newMerchant?.BusinessIdNumber, Is.Empty);
         }
 
 
