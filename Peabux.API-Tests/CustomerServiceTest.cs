@@ -2,8 +2,11 @@ using Microsoft.EntityFrameworkCore;
 using NUnit.Framework;
 using Peabux.API.Data;
 using Peabux.API.Entities;
+using Peabux.API.Models;
+using Peabux.API.Services.CustomerService;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Peabux.API_Tests
 {
@@ -15,6 +18,7 @@ namespace Peabux.API_Tests
 
         AppDbContext dbContext;
 
+        CustomerService customerService;
 
         [OneTimeSetUp]
         public void Setup()
@@ -23,7 +27,27 @@ namespace Peabux.API_Tests
             dbContext.Database.EnsureCreated();
 
             SeedDatabase();
+
+            customerService = new CustomerService(dbContext);
         }
+
+        [Test, Order(1)]
+        public async Task GetCustomer_WithResponse_Test()
+        {
+            var result = await customerService.GetCustomer(1);
+            Assert.That(result.Success, Is.True, "The operation should be successful");
+
+            // Access properties from the data contained in BaseResponse
+            var customerData = result.Data as GetCustomerModel;
+
+            Assert.That(customerData?.Name, Is.EqualTo("Amadi"));
+
+            Assert.That(customerData, Is.Not.Null, "Customer data should not be null");
+        }
+
+        
+
+
 
 
         [OneTimeTearDown]
