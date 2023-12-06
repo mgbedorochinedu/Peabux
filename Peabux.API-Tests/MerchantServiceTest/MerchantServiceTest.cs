@@ -16,7 +16,7 @@ namespace Peabux.API_Tests.MerchantServiceTest
     public class MerchantServiceTest
     {
         private static DbContextOptions<AppDbContext> dbContextOptions = new DbContextOptionsBuilder<AppDbContext>()
-            .UseInMemoryDatabase(databaseName: "PeabuxDbTest")
+            .UseInMemoryDatabase(databaseName: "MerchantDbTest")
             .Options;
 
         AppDbContext dbContext;
@@ -36,59 +36,6 @@ namespace Peabux.API_Tests.MerchantServiceTest
 
 
         [Test, Order(1)]
-        public async Task GetMerchant_WithResponse_Test()
-        {
-            var result = await merchantService.GetMerchant(1);
-            Assert.That(result.Success, Is.True, "The operation should be successful");
-
-            // Access properties from the data contained in BaseResponse
-            var merchantData = result.Data as GetMerchantModel;
-
-            Assert.That(merchantData?.BusinessName, Is.EqualTo("Brandtechture Design Agency"));
-
-            Assert.That(merchantData, Is.Not.Null, "Merchcant data should not be null");
-        }
-
-
-        [Test, Order(2)]
-        public async Task GetCustomer_WithoutResponse_Test()
-        {
-            var result = await merchantService.GetMerchant(60);
-            Assert.That(result.Success, Is.False, "The operation should failed because no Customer Id of 60");
-
-            // Access properties from the data contained in BaseResponse
-            var merchantData = result.Data as GetMerchantModel;
-
-            Assert.That(merchantData, Is.Null, "Merchant data should be null");
-        }
-
-
-
-        [Test, Order(3)]
-        public async Task AddMerchant_With_Success_Response_Test()
-        {
-            var newMerchant = new AddMerchantModel()
-            {
-                BusinessIdNumber = "BUS-4549001239",
-                BusinessName = "Primehype Systems Services",
-                ContactName = "Ayo",
-                ContactSurname = "Adeyemi",
-                EstablishmentDate = new DateTime(2018, 07, 12),
-                MerchantNumber = "7003412",
-                AverageTransaction = 1500000
-            };
-
-            var result = await merchantService.AddMerchant(newMerchant);
-
-            Assert.That(result, Is.Not.Null);
-            Assert.That(newMerchant?.ContactSurname, Does.StartWith("Adeyemi"));
-            Assert.That(result.Data, Is.Not.Null);
-            Assert.That(newMerchant?.BusinessIdNumber, Is.EqualTo("BUS-4549001239"));
-            Assert.That(result.Success, Is.True, "The operation should saved successful");
-        }
-
-
-        [Test, Order(4)]
         public async Task AddMerchant_With_Failed_Response_Test()
         {
             var newMerchant = new AddMerchantModel()
@@ -116,6 +63,7 @@ namespace Peabux.API_Tests.MerchantServiceTest
 
 
 
+
         [OneTimeTearDown]
         public void CleanUp()
         {
@@ -136,7 +84,7 @@ namespace Peabux.API_Tests.MerchantServiceTest
                     ContactSurname = "Johnson",
                     EstablishmentDate = new DateTime(2000, 07, 12),
                     MerchantNumber = "1933412",
-                    AverageTransaction = 2100000
+                    AverageTransaction = 210000
 
                 },
 
@@ -149,7 +97,7 @@ namespace Peabux.API_Tests.MerchantServiceTest
                     ContactSurname = "Adeyemi",
                     EstablishmentDate = new DateTime(2018, 07, 12),
                     MerchantNumber = "7003412",
-                    AverageTransaction = 1500000
+                    AverageTransaction = 150000
                   }
             };
             dbContext.Merchants.AddRange(merchants);

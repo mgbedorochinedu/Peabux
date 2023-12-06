@@ -14,7 +14,7 @@ namespace Peabux.API_Tests
     public class CustomerServiceTest
     {
         private static DbContextOptions<AppDbContext> dbContextOptions = new DbContextOptionsBuilder<AppDbContext>()
-            .UseInMemoryDatabase(databaseName: "PeabuxDbTest")
+            .UseInMemoryDatabase(databaseName: "CustomerDbTest")
             .Options;
 
         AppDbContext dbContext;
