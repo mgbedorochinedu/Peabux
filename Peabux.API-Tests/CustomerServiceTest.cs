@@ -59,6 +59,27 @@ namespace Peabux.API_Tests
         }
 
 
+        [Test, Order(3)]
+        public async Task CreateCustomer_With_Success_Response_Test()
+        {
+            var newCustomer = new CreateCustomerModel()
+            {
+                NationalID = "5412-7512-3412-3456",
+                Name = "Chinedu",
+                Surname = "Mgbedoro",
+                DOB = new DateTime(1968, 11, 3),
+                CustomerNumber = "CUS5434970",
+                TransactionHistory = "None"
+            };
+
+            var result = await customerService.CreateCustomer(newCustomer);
+
+            Assert.That(result, Is.Not.Null);
+            Assert.That(result.Data, Is.Not.Null);
+            Assert.That(newCustomer?.CustomerNumber, Is.EqualTo("CUS5434970"));
+            Assert.That(result.Success, Is.True, "The operation should saved successful");
+        }
+
 
 
 
