@@ -45,7 +45,21 @@ namespace Peabux.API_Tests
             Assert.That(customerData, Is.Not.Null, "Customer data should not be null");
         }
 
-        
+
+        [Test, Order(2)]
+        public async Task GetCustomer_WithoutResponse_Test()
+        {
+            var result = await customerService.GetCustomer(99);
+            Assert.That(result.Success, Is.False, "The operation should failed because no Customer Id of 99");
+
+            // Access properties from the data contained in BaseResponse
+            var customerData = result.Data as GetCustomerModel;
+
+            Assert.That(customerData, Is.Null, "Customer data should be null");
+        }
+
+
+
 
 
 
