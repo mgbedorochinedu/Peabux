@@ -63,6 +63,30 @@ namespace Peabux.API_Tests.MerchantServiceTest
 
 
 
+        [Test, Order(3)]
+        public async Task AddMerchant_With_Success_Response_Test()
+        {
+            var newMerchant = new AddMerchantModel()
+            {
+                BusinessIdNumber = "BUS-4549001239",
+                BusinessName = "Primehype Systems Services",
+                ContactName = "Ayo",
+                ContactSurname = "Adeyemi",
+                EstablishmentDate = new DateTime(2018, 07, 12),
+                MerchantNumber = "7003412",
+                AverageTransaction = 1500000
+            };
+
+            var result = await merchantService.AddMerchant(newMerchant);
+
+            Assert.That(result, Is.Not.Null);
+            Assert.That(newMerchant?.ContactSurname, Does.StartWith("Adeyemi"));
+            Assert.That(result.Data, Is.Not.Null);
+            Assert.That(newMerchant?.BusinessIdNumber, Is.EqualTo("BUS-4549001239"));
+            Assert.That(result.Success, Is.True, "The operation should saved successful");
+        }
+
+
 
 
         [OneTimeTearDown]
