@@ -2,6 +2,7 @@
 using NUnit.Framework;
 using Peabux.API.Data;
 using Peabux.API.Entities;
+using Peabux.API.Models;
 using Peabux.API.Services.MerchantService;
 using System;
 using System.Collections.Generic;
@@ -33,20 +34,19 @@ namespace Peabux.API_Tests.MerchantServiceTest
         }
 
 
+        [Test, Order(1)]
+        public async Task GetMerchant_WithResponse_Test()
+        {
+            var result = await merchantService.GetMerchant(1);
+            Assert.That(result.Success, Is.True, "The operation should be successful");
 
+            // Access properties from the data contained in BaseResponse
+            var merchantData = result.Data as GetMerchantModel;
 
+            Assert.That(merchantData?.BusinessName, Is.EqualTo("Brandtechture Design Agency"));
 
-
-
-
-
-
-
-
-
-
-
-
+            Assert.That(merchantData, Is.Not.Null, "Merchcant data should not be null");
+        }
 
 
 
